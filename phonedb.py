@@ -17,7 +17,7 @@ def getUserAgent():
               'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0']
     return agents[random.randrange(len(agents))]
 
-def getProcessors(res,arr): 
+def gehttp://phonedb.net/index.php?m=device&id=15927&c=xiaomi_mi_mix_3_5g_global_td-lte_128gb_m1810e5ggtProcessors(res,arr): 
     soup = BeautifulSoup(res.text, 'html.parser')
     for div in soup.find_all('div', "content_block_title"):
         for anchors in div.findAll('a'):
@@ -82,7 +82,7 @@ def extractinfo(res,arr):
                 deviceinfo['os'] = title.next_sibling.next_sibling.get('title')  
             if(title.get('id') == 'datasheet_item_id91'):
                 deviceinfo['resolution'] = title.next_sibling
-    print(deviceinfo)
+    arr.append(deviceinfo)
                 
 def main():
     req = Session()
@@ -122,13 +122,14 @@ def main():
     headers['Referer'] = url
     base = "http://phonedb.net/"
     info = []
+    f = codecs.open("phones.txt",'w+', encoding='utf8')
     for link in links:
         url = base + link;
         res = req.get(url=url,headers=headers)
         extractinfo(res, info)
-#    f = codecs.open("html.txt",'w+', encoding='utf8')
-#    f.write(res.text)
-#    f.close()
+    for phone in info:
+        f.write(phone)
+    f.close()
     
     
 if __name__ == "__main__":
