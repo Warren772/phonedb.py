@@ -130,10 +130,10 @@ def main():
         url = base + link;
         res = req.get(url=url,headers=headers)
         extractinfo(res,info)
-        if(limit == len(info)):
+        if(int(limit) == len(info)):
             break
     for phone in info:
-        f.write(phone)
+        f.write(str(phone))
     f.close()
     
     
