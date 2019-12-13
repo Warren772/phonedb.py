@@ -70,7 +70,7 @@ def getdevicehref(res, arr):
                 
                 
                 
-def extractinfo(res,arr,lim):
+def extractinfo(res,arr):
     soup = BeautifulSoup(res.text, 'html.parser')
     deviceinfo = {} 
     for row in soup.find_all('tr'):
@@ -83,9 +83,7 @@ def extractinfo(res,arr,lim):
                 deviceinfo['os'] = title.next_sibling.next_sibling.get('title')  
             if(title.get('id') == 'datasheet_item_id91'):
                 deviceinfo['resolution'] = title.next_sibling
-            if(len(arr) == lim):
-                return
-    print(deviceinfo)
+    print('['+ len(arr) + ']' + deviceinfo)
     arr.append(deviceinfo)
                 
 def main():
@@ -131,7 +129,9 @@ def main():
     for link in links:
         url = base + link;
         res = req.get(url=url,headers=headers)
-        extractinfo(res, info,limit)
+        extractinfo(res,info)
+        if(lim == arr(info)):
+            break
     for phone in info:
         f.write(phone)
     f.close()
