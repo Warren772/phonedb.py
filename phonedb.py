@@ -17,7 +17,7 @@ def getUserAgent():
               'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0']
     return agents[random.randrange(len(agents))]
 
-def gehttp://phonedb.net/index.php?m=device&id=15927&c=xiaomi_mi_mix_3_5g_global_td-lte_128gb_m1810e5ggtProcessors(res,arr): 
+def getProcessors(res,arr): 
     soup = BeautifulSoup(res.text, 'html.parser')
     for div in soup.find_all('div', "content_block_title"):
         for anchors in div.findAll('a'):
