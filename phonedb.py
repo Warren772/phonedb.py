@@ -1,3 +1,4 @@
+import codecs
 import requests
 import random
 import sys
