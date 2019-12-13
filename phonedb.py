@@ -130,7 +130,7 @@ def main():
         url = base + link;
         res = req.get(url=url,headers=headers)
         extractinfo(res,info)
-        if(lim == arr(info)):
+        if(limit == len(info)):
             break
     for phone in info:
         f.write(phone)
