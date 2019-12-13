@@ -83,7 +83,7 @@ def extractinfo(res,arr):
                 deviceinfo['os'] = title.next_sibling.next_sibling.get('title')  
             if(title.get('id') == 'datasheet_item_id91'):
                 deviceinfo['resolution'] = title.next_sibling
-    print('['+ len(arr) + ']' + deviceinfo)
+    print('['+ str(len(arr)) + ']' + deviceinfo)
     arr.append(deviceinfo)
                 
 def main():
