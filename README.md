@@ -2,6 +2,6 @@ simple script to scrape all phones from phonedb.net, an extensive database with 
 
 creates a textfile containing all the phones returned from the database. 
 
-Example: python phonedb.py Armv8
+Example: python phonedb.py Armv8 50
 
 required libraries: python-bs4 | beautifulsoup4 
