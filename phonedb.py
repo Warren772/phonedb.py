@@ -1,3 +1,4 @@
+import os
 import codecs
 import requests
 import random
@@ -80,9 +81,11 @@ def extractinfo(res,arr):
             if(title.get('id') == 'datasheet_item_id2'):
                 deviceinfo['model'] = title.next_sibling
             if(title.get('id') == 'datasheet_item_id32'):
-                deviceinfo['os'] = title.next_sibling.next_sibling.get('title')  
+                deviceinfo['os'] = title.next_sibling.next_sibling.get('title') 
             if(title.get('id') == 'datasheet_item_id91'):
                 deviceinfo['resolution'] = title.next_sibling
+            if(title.get('id') == 'datasheet_item_id87'):
+                deviceinfo['dpi'] = title.next_sibling.next_element
     print('['+ str(len(arr)) + ']' + str(deviceinfo))
     arr.append(deviceinfo)
                 
@@ -92,6 +95,8 @@ def main():
     url = "http://phonedb.net/index.php?m=processor&s=query&d=detailed_specs"
     instructionset = sys.argv[1]
     limit = sys.argv[2] 
+    if(len(sys.argv) >= 4): 
+        reset = sys.argv[3]
     data = "query_start2=&design=&type=&codename=&released_year_min=&released_year_max=&function=1&width_min=&width_max=&iset=" + instructionset +"&pipeline_min=&pipeline_max=&core_num_min=&core_num_max=&core=&abus_width_min=&abus_width_max=&bus_type%5B%5D=0&bus_clk_min=&bus_clk_max=&dbus_width_min=&dbus_width_max=&bus_ch_min=&bus_ch_max=&bus_ddr_min=&bus_ddr_max=&bus_r_min=&bus_r_max=&dbus2_width_min=&dbus2_width_max=&dma_ch_min=&dma_ch_max=&clk_min_min=&clk_min_max=&clk_max_min=&clk_max_max=&l0i_min=&l0i_max=&l0d_min=&l0d_max=&l1i_min=&l1i_max=&l1d_min=&l1d_max=&l2_min=&l2_max=&l3_min=&l3_max=&fsize_min=&fsize_max=&tech=1&transistors_min=&transistors_max=&fab=&pins_min=&pins_max=&supply_min=&supply_max=&gpu=&gpu_core_num_min=&gpu_core_num_max=&gpu_clk_min=&gpu_clk_max=&vram_min=&vram_max=&p_r%5B%5D=0&gps%5B%5D=0&galileo%5B%5D=0&glonass%5B%5D=0&bds%5B%5D=0&plus="
     headers = {
         'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -125,6 +130,11 @@ def main():
     headers['Referer'] = url
     base = "http://phonedb.net/"
     info = []
+    if(bool(reset) == 1):
+        if(os.path.exists("phones.txt")):
+            os.remove("phones.txt")
+        else:
+            print("Supplied reset arg without phones.txt file.")
     f = codecs.open("phones.txt",'w+', encoding='utf8')
     for link in links:
         url = base + link;
